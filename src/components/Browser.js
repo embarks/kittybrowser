@@ -29,7 +29,6 @@ class Browser extends Component {
     const { methods: { totalSupply } } = this.context.drizzle.contracts[CONTRACT_NAME];
     const upperBound = await totalSupply().call();
     const randomKittyId = Math.floor(Math.random() * upperBound) + 1;
-    console.log("random kitty", randomKittyId)
     this.getKitty({ id: randomKittyId });
   }
 
@@ -39,11 +38,20 @@ class Browser extends Component {
 
   // calls the contract method to get a kitty given the id or the currently entered value
   getKitty = ({ id }) => {
-    const kittyId = id ? id : this.state.value;
-    const { methods: { getKitty } } = this.context.drizzle.contracts[CONTRACT_NAME];
-    getKitty(kittyId).call(this.setKitty(kittyId));
+    // note [esb] simple ui does not handle errors
+    try {
+      const kittyId = id ? parseInt(id, 10) : parseInt(this.state.value, 10);
+      const { methods: { getKitty } } = this.context.drizzle.contracts[CONTRACT_NAME];
+      getKitty(kittyId).call(this.setKitty(kittyId));
+    } catch (error) {
+      console.error(error)
+      this.setState({ error })
+    }
   }
 
+  keyPress = (e) => {
+    if (e.keyCode === 13) this.getKitty(e.target.value);
+  }
   // just update the user input
   update = ({ target: { value } }) => this.setState({ value });
 
@@ -52,19 +60,36 @@ class Browser extends Component {
       {id ? <img src={`${KITTY_ALBUM}/${id}.png`} alt="[one cute kitty]" /> : null}
     </div>
   }
+  KittyInfo = ({ kitty }) => {
+    const { genes, generation, birthTime, sireId: dad, matronId: mom } = kitty || {};
+    console.log("contract", kitty)
+    return <div> {`${genes} ${generation} ${birthTime} ${dad} ${mom}`}</div>
+  }
+  Boundary = ({ info, children }) => {
+    if (info) return <div className="fetch-error">{info}</div>
+    else return children;
+  }
   render() {
-    const { value, kitty } = this.state;
+    const { value, kitty, contractResult, error } = this.state;
     return (
       <div className="browser">
         <h1>
           Kitty Browser
         </h1>
         <section>
-          <input value={value} onChange={this.update} />
-          <button onClick={this.getKitty}>show me this kitty</button>
-          <button onClick={this.getRandomKitty}>show me a random kitty</button>
-          <this.KittyPortrait id={kitty} />
+          <label htmlFor="kitty-id" className="kitty-id-input">
+            Identifier:
+            <input id="kitty-id" onKeyDown={this.keyPress} value={value} onChange={this.update} />
+          </label>
+          <button onClick={this.getKitty}>fetch this kitty</button>
+          <button onClick={this.getRandomKitty}>fetch random kitty</button>
+          <this.Boundary info={error ? error.message : null} >
+            <this.KittyInfo kitty={contractResult} />
+            <this.KittyPortrait id={kitty} />
+          </this.Boundary>
+
         </section>
+
       </div>
     );
   }

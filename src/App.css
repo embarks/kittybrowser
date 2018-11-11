@@ -26,6 +26,7 @@ body, html {
   background: #f0f0f0;
   height:300px;
   width:300px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, .15)
 }
 
 .kitty-portrait img {
@@ -33,5 +34,4 @@ body, html {
   width: 300px;
   color: #f0f0f0;
   background: #f0f0f0;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, .15)
 }
