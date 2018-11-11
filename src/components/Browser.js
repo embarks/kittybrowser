@@ -22,9 +22,10 @@ class Browser extends Component {
       web3Contract: kittyContract
     });
     // get a random kitty when the component mounts
-    await this.getRandomKitty();
+    this.getRandomKitty();
   }
 
+  // get the 
   getRandomKitty = async () => {
     const { methods: { totalSupply } } = this.context.drizzle.contracts[CONTRACT_NAME];
     const upperBound = await totalSupply().call();

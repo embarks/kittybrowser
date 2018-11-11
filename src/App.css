@@ -2,8 +2,9 @@ body, html {
   padding: 10px;
   font-family: Arial;
   font-size: 12px;
-  color: #333;
-  font-size: 16px;
+  color: #000;
+   font-size: 16px;
+   background: #ffffff; /* Old browsers */
 }
 
 .loading {
@@ -23,15 +24,18 @@ body, html {
 }
 
 .kitty-portrait {
-  background: #f0f0f0;
+  background: -moz-linear-gradient(-45deg, #ff84c9 4%, #fcc9a9 28%, #fffaa5 45%, #80ed9e 73%, #afcaff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #ff84c9 4%,#fcc9a9 28%,#fffaa5 45%,#80ed9e 73%,#afcaff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #ff84c9 4%,#fcc9a9 28%,#fffaa5 45%,#80ed9e 73%,#afcaff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff84c9', endColorstr='#afcaff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   height:300px;
   width:300px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, .15)
+  border-radius: 3px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, .2)
 }
 
 .kitty-portrait img {
   height: 300px;
   width: 300px;
-  color: #f0f0f0;
-  background: #f0f0f0;
+  color: #fff;
 }
