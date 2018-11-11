@@ -21,3 +21,17 @@ body, html {
   color: tomato;
   padding: 10px 0;
 }
+
+.kitty-portrait {
+  background: #f0f0f0;
+  height:300px;
+  width:300px;
+}
+
+.kitty-portrait img {
+  height: 300px;
+  width: 300px;
+  color: #f0f0f0;
+  background: #f0f0f0;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, .15)
+}

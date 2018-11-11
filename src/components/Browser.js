@@ -7,7 +7,7 @@ import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
 const KITTY_ALBUM = 'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d';
 
 class Browser extends Component {
-  state = { error: null, kitty: null, contractResult: null, value: "", portraitLoading: false };
+  state = { error: null, kitty: null, contractResult: null, value: "" };
 
   async componentDidMount() {
     const web3 = new Web3(window.web3.currentProvider);
@@ -29,6 +29,7 @@ class Browser extends Component {
     const { methods: { totalSupply } } = this.context.drizzle.contracts[CONTRACT_NAME];
     const upperBound = await totalSupply().call();
     const randomKittyId = Math.floor(Math.random() * upperBound) + 1;
+    console.log("random kitty", randomKittyId)
     this.getKitty({ id: randomKittyId });
   }
 
@@ -38,7 +39,6 @@ class Browser extends Component {
 
   // calls the contract method to get a kitty given the id or the currently entered value
   getKitty = ({ id }) => {
-    this.setState({ portraitLoading: true })
     const kittyId = id ? id : this.state.value;
     const { methods: { getKitty } } = this.context.drizzle.contracts[CONTRACT_NAME];
     getKitty(kittyId).call(this.setKitty(kittyId));
@@ -48,8 +48,9 @@ class Browser extends Component {
   update = ({ target: { value } }) => this.setState({ value });
 
   KittyPortrait = ({ id }) => {
-    return id ?
-      <img src={`${KITTY_ALBUM}/${id}.png`} alt="[a cute kitty]" /> : null;
+    return <div className="kitty-portrait">
+      {id ? <img src={`${KITTY_ALBUM}/${id}.png`} alt="[one cute kitty]" /> : null}
+    </div>
   }
   render() {
     const { value, kitty } = this.state;
@@ -60,7 +61,8 @@ class Browser extends Component {
         </h1>
         <section>
           <input value={value} onChange={this.update} />
-          <button onClick={this.getKitty}>SHOW ME THE KITTY</button>
+          <button onClick={this.getKitty}>show me this kitty</button>
+          <button onClick={this.getRandomKitty}>show me a random kitty</button>
           <this.KittyPortrait id={kitty} />
         </section>
       </div>
