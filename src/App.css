@@ -3,8 +3,8 @@ body, html {
   font-family: Arial;
   font-size: 12px;
   color: #000;
-   font-size: 16px;
-   background: #ffffff; /* Old browsers */
+  font-size: 16px;
+  background: #f0f0f0; /* Old browsers */
 }
 
 .loading {
@@ -23,6 +23,16 @@ body, html {
   padding: 10px 0;
 }
 
+.browser {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  
+}
+.browser h1 {
+  text-align: center;
+}
+
 .kitty-portrait {
   background: -moz-linear-gradient(-45deg, #ff84c9 4%, #fcc9a9 28%, #fffaa5 45%, #80ed9e 73%, #afcaff 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(-45deg, #ff84c9 4%,#fcc9a9 28%,#fffaa5 45%,#80ed9e 73%,#afcaff 100%); /* Chrome10-25,Safari5.1-6 */
@@ -37,19 +47,23 @@ body, html {
 .kitty-portrait img {
   height: 250px;
   width: 250px;
-  color: #fff;
+  color: transparent;
 }
 
 .kitty-card {
+  transition-duration: 250ms;
   position:relative;
   width: 252px;
-  height: 482px;
   padding: 24px;
   font-size: 12px;
   display:flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, .2);
+}
+.kitty-card:hover {
+  background-color: #fff;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, .3);
 
 }
 
@@ -67,13 +81,12 @@ body, html {
   background: rgba(0, 0, 0, .8);
   color: #ff84c9;
   padding: 24px;
-  text-align: center;
+  text-align: left;
 }
 
 .kitty-card label.error-info span {
   font-weight: normal;
   color: #fff;
-  text-align: left;
 }
 
 .kitty-info {
@@ -83,9 +96,64 @@ body, html {
 
 .kitty-info span {
   display:block;
-  height:30px;
+  min-height:30px;
 }
 
 .kitty-info label {
   font-weight: bold;
+}
+
+section.disp-kitty {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+section.kitty-search-ctrl {
+  max-width: 300px;
+  display:flex;
+  flex-direction:column;
+}
+
+section.kitty-search-ctrl button {
+  background-color: #afcaff;
+  font-size: 18px;
+  border: none;
+  height: 48px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  background: #afcaff; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #afcaff 0%, #7db9e8 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #afcaff 0%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #afcaff 0%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afcaff', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  outline:none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, .2);
+
+}
+
+section.kitty-search-ctrl button:hover {
+  background: #afcaff;
+}
+
+label.kitty-id-input {
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+}
+
+label.kitty-id-input input {
+  transition-duration: 250ms;
+  display:block;
+  text-align:center;
+  height: 24px;
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  margin: 24px 0;
+}
+
+label.kitty-id-input input:hover {
+  background-color: #fff;
 }

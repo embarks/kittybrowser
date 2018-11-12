@@ -23,10 +23,11 @@ class Browser extends Component {
       web3Contract: kittyContract
     });
     // get a random kitty when the component mounts
-    this.getRandomKitty();
+    // this.getRandomKitty();
   }
 
-  // get the 
+  // get the total supply of kitties to get the upper bound 
+  // fetch a random kitty between ID 1 and totalSupply
   getRandomKitty = async () => {
     const { methods: { totalSupply } } = this.context.drizzle.contracts[CONTRACT_NAME];
     const upperBound = await totalSupply().call();
@@ -35,7 +36,7 @@ class Browser extends Component {
   }
 
   setKitty = (id) => (error, contractResult) => {
-    this.setState({ kitty: id, value: id, error, contractResult }, () => { console.log(this.state) });
+    this.setState({ kitty: id, value: id, error, contractResult });
   }
 
   // calls the contract method to get a kitty given the id or the currently entered value
@@ -46,7 +47,7 @@ class Browser extends Component {
       const { methods: { getKitty } } = this.context.drizzle.contracts[CONTRACT_NAME];
       getKitty(kittyId).call(this.setKitty(kittyId));
     } catch (error) {
-      console.error(error)
+      console.error("Caught error in getKitty", error)
       this.setState({ error })
     }
   }
@@ -79,7 +80,7 @@ class Browser extends Component {
         <span>{`${generation}`}</span>
 
         <label>Born</label>
-        <span>{`${moment.unix(birthTime).format("MM-DD-YYYY HH:mm")}`}</span>
+        <span>{`${birthTime ? moment.unix(birthTime).format("MM-DD-YYYY HH:mm") : ''}`}</span>
 
         <label>Matron ID</label>
         <span>{`${dad}`}</span>
@@ -105,21 +106,27 @@ class Browser extends Component {
     return (
       <div className="browser">
         <h1>
-          Kitty Browser
+          <span role="img" aria-label="rainbow">🌈</span>Kitty Browser
         </h1>
-        <section>
+        <section className="disp-kitty">
           <this.Boundary info={error ? error.message : null}>
             <this.KittyPortrait id={kitty} />
             <this.KittyInfo kitty={contractResult} />
           </this.Boundary>
+        </section>
+        <section className="kitty-search-ctrl">
           <label htmlFor="kitty-id" className="kitty-id-input">
-            Identifier:
-            <input id="kitty-id" onKeyDown={this.keyPress} value={value} onChange={this.update} />
+            <input
+              placeholder="Enter Kitty ID#"
+              id="kitty-id"
+              onKeyDown={this.keyPress}
+              value={value}
+              onChange={this.update}
+            />
           </label>
           <button onClick={this.getKitty}>fetch this kitty</button>
           <button onClick={this.getRandomKitty}>fetch random kitty</button>
         </section>
-
       </div>
     );
   }
