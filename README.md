@@ -21,10 +21,11 @@ For this challenge you will create a simple UI that will be able to interact wit
 - Feel free to customize the styles as you wish or use any extra libraries that you need
 
 
-## The result should look somethig like this:
+## The result should look something like this:
 
 <!-- ![kitty browser](https://i.imgur.com/YQdKma5.png) -->
-![kitty browser](https://imgur.com/a/ghGLTjH.png)
+
+![kitty browser](https://imgur.com/ghGLTjH.png)
 
 # Hints
 - You will need to use the `drizzle` instance available on React's context (See components/Browser.js)
