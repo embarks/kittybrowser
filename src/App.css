@@ -68,6 +68,7 @@ body, html {
 }
 
 .kitty-card label.error-info {
+  z-index:3;
   position: absolute;
   font-weight: bold;
   top:0;
@@ -97,10 +98,30 @@ body, html {
 .kitty-info span {
   display:block;
   min-height:30px;
+  font-weight:normal;
 }
 
 .kitty-info label {
+  display: block;
   font-weight: bold;
+  position:relative;
+}
+
+.kitty-info label button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: purple;
+  border:none;
+  color:white;
+  height: 20px;
+  border-radius: 4px;
+  font-family:'Courier New', Courier, monospace;
+}
+
+.kitty-info label button:disabled {
+  background-color:#a386a5;
+  color: #f0f0f0;
 }
 
 section.disp-kitty {
@@ -152,6 +173,7 @@ label.kitty-id-input input {
   border: none;
   background-color: transparent;
   margin: 24px 0;
+  font-family: serif;
 }
 
 label.kitty-id-input input:hover {
