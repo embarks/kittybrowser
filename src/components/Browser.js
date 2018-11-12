@@ -73,20 +73,27 @@ class Browser extends Component {
     };
     return (
       <div className="kitty-info">
-        <label>Genes</label>
-        <span>{`${genes}`}</span>
+        <label>Genes
+          <span>{`${genes}`}</span>
+        </label>
 
-        <label>Generation</label>
-        <span>{`${generation}`}</span>
+        <label>Generation
+          <span>{`${generation}`}</span>
+        </label>
 
-        <label>Born</label>
-        <span>{`${birthTime ? moment.unix(birthTime).format("MM-DD-YYYY HH:mm") : ''}`}</span>
+        <label>Born
+          <span>{`${birthTime ? moment.unix(birthTime).format("MM-DD-YYYY HH:mm") : ''}`}</span>
+        </label>
 
-        <label>Matron ID</label>
-        <span>{`${dad}`}</span>
+        <label>Sire ID
+          <span>{`${dad}`}</span>
+          <button onClick={() => { this.getKitty({ id: dad }) }}>show dad</button>
+        </label>
 
-        <label>Sire ID</label>
-        <span>{`${mom}`}</span>
+        <label>Matron ID
+          <span>{`${mom}`}</span>
+          <button onClick={() => { this.getKitty({ id: mom }) }}>show mom</button>
+        </label>
       </div>
     );
   }
