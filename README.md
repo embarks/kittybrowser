@@ -25,7 +25,7 @@ For this challenge you will create a simple UI that will be able to interact wit
 
 <!-- ![kitty browser](https://i.imgur.com/YQdKma5.png) -->
 
-![kitty browser](https://imgur.com/ghGLTjH.png)
+![kitty browser](https://i.imgur.com/N5rRBLY.png)
 
 # Hints
 - You will need to use the `drizzle` instance available on React's context (See components/Browser.js)
