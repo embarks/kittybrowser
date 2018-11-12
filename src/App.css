@@ -28,14 +28,64 @@ body, html {
   background: -webkit-linear-gradient(-45deg, #ff84c9 4%,#fcc9a9 28%,#fffaa5 45%,#80ed9e 73%,#afcaff 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(135deg, #ff84c9 4%,#fcc9a9 28%,#fffaa5 45%,#80ed9e 73%,#afcaff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff84c9', endColorstr='#afcaff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-  height:300px;
-  width:300px;
+  height:250px;
+  width:250px;
   border-radius: 3px;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, .2)
+  margin-bottom: 24px;
 }
 
 .kitty-portrait img {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
   color: #fff;
+}
+
+.kitty-card {
+  position:relative;
+  width: 252px;
+  height: 482px;
+  padding: 24px;
+  font-size: 12px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, .2);
+
+}
+
+.kitty-card label.error-info {
+  position: absolute;
+  font-weight: bold;
+  top:0;
+  bottom:0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, .8);
+  color: #ff84c9;
+  padding: 24px;
+  text-align: center;
+}
+
+.kitty-card label.error-info span {
+  font-weight: normal;
+  color: #fff;
+  text-align: left;
+}
+
+.kitty-info {
+  width: 100%;
+  word-wrap:break-word;
+}
+
+.kitty-info span {
+  display:block;
+  height:30px;
+}
+
+.kitty-info label {
+  font-weight: bold;
 }

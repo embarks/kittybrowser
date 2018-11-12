@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { object } from 'prop-types';
 import Web3 from 'web3';
 import KittyCoreABI from '../contracts/KittyCoreABI.json';
@@ -62,13 +63,42 @@ class Browser extends Component {
     </div>
   }
   KittyInfo = ({ kitty }) => {
-    const { genes, generation, birthTime, sireId: dad, matronId: mom } = kitty || {};
-    console.log("contract", kitty)
-    return <div> {`${genes} ${generation} ${birthTime} ${dad} ${mom}`}</div>
+    const { genes, generation, birthTime, sireId: dad, matronId: mom } = kitty || {
+      genes: '',
+      generation: '',
+      birthTime: '',
+      sireId: '',
+      matronId: ''
+    };
+    return (
+      <div className="kitty-info">
+        <label>Genes</label>
+        <span>{`${genes}`}</span>
+
+        <label>Generation</label>
+        <span>{`${generation}`}</span>
+
+        <label>Born</label>
+        <span>{`${moment.unix(birthTime).format("MM-DD-YYYY HH:mm")}`}</span>
+
+        <label>Matron ID</label>
+        <span>{`${dad}`}</span>
+
+        <label>Sire ID</label>
+        <span>{`${mom}`}</span>
+      </div>
+    );
   }
   Boundary = ({ info, children }) => {
-    if (info) return <div className="fetch-error">{info}</div>
-    else return children;
+    return (
+      <div className="kitty-card">{info ?
+        <label className="error-info">Problem encountered while fetching kitty:
+        <span>{`${info}`}</span>
+        </label>
+        : null}
+        {children}
+      </div>
+    );
   }
   render() {
     const { value, kitty, contractResult, error } = this.state;
@@ -78,17 +108,16 @@ class Browser extends Component {
           Kitty Browser
         </h1>
         <section>
+          <this.Boundary info={error ? error.message : null}>
+            <this.KittyPortrait id={kitty} />
+            <this.KittyInfo kitty={contractResult} />
+          </this.Boundary>
           <label htmlFor="kitty-id" className="kitty-id-input">
             Identifier:
             <input id="kitty-id" onKeyDown={this.keyPress} value={value} onChange={this.update} />
           </label>
           <button onClick={this.getKitty}>fetch this kitty</button>
           <button onClick={this.getRandomKitty}>fetch random kitty</button>
-          <this.Boundary info={error ? error.message : null} >
-            <this.KittyInfo kitty={contractResult} />
-            <this.KittyPortrait id={kitty} />
-          </this.Boundary>
-
         </section>
 
       </div>
